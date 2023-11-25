@@ -3,6 +3,7 @@
         <Head title="My Files"></Head>
         <table
             class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border border-gray-300"
+            v-if="files.data.length"
         >
             <thead
                 class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400"
@@ -17,9 +18,10 @@
             </thead>
             <tbody>
                 <tr
-                    class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
+                    class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 cursor-pointer"
                     v-for="file of files.data"
                     :key="file.id"
+                    @dblclick="openFolder(file)"
                 >
                     <th
                         scope="row"
@@ -70,16 +72,26 @@
                 </tr>
             </tbody>
         </table>
+        <div v-else class="py-8 text-center text-gray-400">
+            There is no data Here
+        </div>
     </AuthenticatedLayout>
 </template>
 
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head } from "@inertiajs/vue3";
+import { Head, router } from "@inertiajs/vue3";
 
 const { files } = defineProps({
     files: Object,
 });
+
+const openFolder = (file) => {
+    if (!file.is_folder) {
+        return;
+    }
+    router.visit(route("myFiles", { folder: file.path }));
+};
 </script>
 
 <style lang="scss" scoped></style>

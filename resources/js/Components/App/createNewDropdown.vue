@@ -23,32 +23,39 @@
             >
                 <div class="px-1 py-1">
                     <MenuItem v-slot="{ active }">
-                        <ResponsiveNavLink :href="route('profile.edit')">
+                        <NavButton @click="showCreateFolderModal">
                             New Folder
-                        </ResponsiveNavLink>
+                        </NavButton>
                     </MenuItem>
                 </div>
                 <div class="px-1 py-1">
                     <MenuItem v-slot="{ active }">
-                        <ResponsiveNavLink :href="route('profile.edit')">
-                            Upload Files
-                        </ResponsiveNavLink>
+                        <NavButton @click=""> New Folder </NavButton>
                     </MenuItem>
                     <MenuItem v-slot="{ active }">
-                        <ResponsiveNavLink :href="route('logout')">
-                            Upload Folder
-                        </ResponsiveNavLink>
+                        <NavButton @click=""> New Folder </NavButton>
                     </MenuItem>
                 </div>
             </MenuItems>
         </transition>
     </Menu>
+    <CreateFolderModal v-model="createFolderModal" />
 </template>
 
 <script setup>
 import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
 import { ChevronDownIcon } from "@heroicons/vue/20/solid";
 import ResponsiveNavLink from "../ResponsiveNavLink.vue";
+import CreateFolderModal from "@/Components/App/CreateFolderModal.vue";
+
+import { ref } from "vue";
+import NavButton from "../NavButton.vue";
+
+const createFolderModal = ref(false);
+
+const showCreateFolderModal = () => {
+    createFolderModal.value = true;
+};
 </script>
 
 <style lang="scss" scoped></style>

@@ -18,7 +18,7 @@
                     placeholder="Folder Name"
                     @keyup.enter="CreateFolder"
                 />
-                <InputError class="mt-2" :message="form.errors.email" />
+                <InputError class="mt-2" :message="form.errors.name" />
                 <div class="mt-6 flex justify-end">
                     <SecondaryButton @click="closeModal"
                         >Cancel
@@ -44,18 +44,22 @@ import Modal from "../Modal.vue";
 import PrimaryButton from "../PrimaryButton.vue";
 import SecondaryButton from "../SecondaryButton.vue";
 import TextInput from "../TextInput.vue";
-import { useForm } from "@inertiajs/vue3";
+import { useForm, usePage } from "@inertiajs/vue3";
 
 const folderNameInput = ref(null);
 const { modelValue } = defineProps({
     modelValue: Boolean,
 });
+
+const page = usePage();
 const emit = defineEmits(["update:modelValue"]);
 const form = useForm({
     name: "",
+    parent_id: null,
 });
 
 const CreateFolder = () => {
+    form.parent_id = page.props.folder.id;
     form.post(route("folder.create"), {
         preserveScroll: true,
         onSuccess: () => {

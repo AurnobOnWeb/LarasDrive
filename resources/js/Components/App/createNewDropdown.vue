@@ -30,7 +30,13 @@
                 </div>
                 <div class="px-1 py-1">
                     <MenuItem v-slot="{ active }">
-                        <NavButton @click=""> New Folder </NavButton>
+                        <NavButton class="relative">
+                            Upload Files
+                            <input
+                                type="file"
+                                class="absolute left-0 top-0 bottom-0 right-0 cursor-pointer opacity-0"
+                            />
+                        </NavButton>
                     </MenuItem>
                     <MenuItem v-slot="{ active }">
                         <NavButton @click=""> New Folder </NavButton>
